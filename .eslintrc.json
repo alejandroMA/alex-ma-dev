@@ -1,0 +1,39 @@
+{
+    "parserOptions": {
+        "sourceType": "module",
+        "allowImportExportEverywhere": true,
+        "ecmaVersion": 10,
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "jest": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": "./node_modules/eslint-config-react-app/index.js",
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "warn",
+        "no-console": "off",
+        "radix": ["error", "always"],
+        "no-unused-vars": [
+            "warn",
+            {
+                "vars": "all",
+                "args": "after-used",
+                "ignoreRestSiblings": true
+            }
+        ],
+        "spaced-comment": ["error", "always"],
+        "max-depth": ["warn", 3],
+        "max-nested-callbacks": ["warn", 3],
+        "complexity": ["warn", 8],
+        "max-params": ["warn", 3],
+        "eqeqeq": ["error", "smart"],
+        "yoda": ["error", "never", { "exceptRange": true }],
+        "no-var": "error"
+    }
+}
