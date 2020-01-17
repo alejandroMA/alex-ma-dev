@@ -38,3 +38,28 @@ main {
 .profile-img {
     border-radius: 50%;
 }
+
+.links a {
+    color: #005b0a;
+}
+
+.links a:hover,
+.links a:active {
+    color: #00790e;
+}
+
+.icons {
+    max-width: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.icons a {
+    color: #6d6d6d;
+    text-decoration: none;
+    font-size: 2rem;
+}
+.icons a:hover,
+.icons a:active {
+    color: #333333;
+}
