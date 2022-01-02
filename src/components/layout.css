@@ -15,10 +15,12 @@
 
 .container {
     margin: 0 auto;
-    /* max-width: 960px; */
     max-width: 600px;
     padding: 0px 1.0875rem 1.45rem;
-    padding-top: 0;
+    margin-top: env(safe-area-inset-top);
+    margin-bottom: env(safe-area-inset-bottom);
+    /* margin-right: env(safe-area-inset-right); */
+    /* margin-left: env(safe-area-inset-left); */
 }
 
 main {
@@ -33,7 +35,7 @@ main {
 .profile-img-wrapper {
     margin: 0 auto;
     margin-bottom: 1.45rem;
-    max-width: 350px;
+    max-width: 300px;
 }
 .profile-img {
     border-radius: 50%;

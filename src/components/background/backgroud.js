@@ -12,7 +12,9 @@ const number = 50
 // const colors = ['#d79abc', '#baabda', '#9fdfcd', '#dcffcc']
 // const colors = ['#f9fce1', '#d3f6f3', '#fee9b2', '#fbd1b7']
 const colors = ['#dcffcc', '#d3f6f3', '#fee9b2', '#fbd1b7']
+// const colors = ['#586651', '#546261', '#655d47', '#645349']
 // const colors = ['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff']
+// const colors = ['#F04C6E', '#FFCB64', '#FF5A4C', '#AF63E6']
 const random = v => {
     const r = Math.random()
     const width = v.width * 1.1

@@ -24,8 +24,8 @@ module.exports = {
                 short_name: `alejandro`,
                 // start_url: `/test`,
                 // start_url: `/`,
-                background_color: `#663399`,
-                theme_color: `#663399`,
+                // background_color: `#663399`,
+                // theme_color: `#663399`,
                 display: `minimal-ui`,
                 icon: `src/img/icon.png`
             }
