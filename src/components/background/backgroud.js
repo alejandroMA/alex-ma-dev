@@ -66,7 +66,6 @@ function Content() {
 
     const resetPositions = useCallback(
         debounce(() => {
-            console.log('refViewport.current', refViewport.current)
             if (refViewport.current) {
                 let newPositions = makePositions(refViewport.current)
                 positionsRef.current = newPositions
@@ -119,7 +118,6 @@ function Content() {
         let isIntervalActive = true
 
         document.addEventListener('click', function() {
-            console.log('click')
             resetPositions()
             clearInterval(interval)
             isIntervalActive = false
@@ -192,8 +190,6 @@ function Effect() {
     const waterPassRef = useRef(null)
 
     useEffect(() => {
-        // console.log('it ran camera')
-
         composer.current.setSize(size.width, size.height)
         if (waterPassRef.current) {
             let ratio = size.width / size.height
