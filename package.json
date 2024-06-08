@@ -10,6 +10,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "@loadable/component": "^5.10.3",
+    "@use-gesture/react": "^10.3.0",
     "debounce": "^1.2.0",
     "gatsby": "^2.17.11",
     "gatsby-image": "^2.2.31",
@@ -19,6 +20,7 @@
     "gatsby-plugin-sharp": "^2.2.37",
     "gatsby-source-filesystem": "^2.1.36",
     "gatsby-transformer-sharp": "^2.3.3",
+    "patch-package": "^8.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -45,10 +47,11 @@
     "develop": "gatsby develop -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
-    "serve": "gatsby serve",
+    "serve": "gatsby serve -H 0.0.0.0",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "analyze": "source-map-explorer 'public/*.js'"
+    "analyze": "source-map-explorer 'public/*.js'",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,27 @@
+diff --git a/node_modules/react-three-fiber/dist/index.js b/node_modules/react-three-fiber/dist/index.js
+index 9346d6e..7dccc67 100644
+--- a/node_modules/react-three-fiber/dist/index.js
++++ b/node_modules/react-three-fiber/dist/index.js
+@@ -901,6 +901,11 @@ const Canvas = memo((_ref2) => {
+     });
+   }, []); // Render the canvas into the dom
+ 
++  useEffect(function() {
++    document.addEventListener('pointermove', handlePointerMove);
++  }, []);
++
++
+   return createElement("div", _extends({
+     ref: bind,
+     onClick: handlePointer('click'),
+@@ -908,8 +913,8 @@ const Canvas = memo((_ref2) => {
+     onPointerDown: handlePointer('pointerDown'),
+     onPointerUp: handlePointer('pointerUp'),
+     onPointerLeave: event => handlePointerCancel(event, []),
+-    onPointerMove: handlePointerMove // On capture intersect and remember the last known position
+-    ,
++    // onPointerMove: handlePointerMove // On capture intersect and remember the last known position
++    // ,
+     onGotPointerCapture: event => state.current.captured = intersect(event, false) // On lost capture remove the captured hit
+     ,
+     onLostPointerCapture: event => (state.current.captured = undefined, handlePointerCancel(event))

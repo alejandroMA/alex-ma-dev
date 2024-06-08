@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback, useState, useMemo } from 'react'
 import { extend, Canvas, useRender, useThree } from 'react-three-fiber'
 import { useSprings, a } from 'react-spring/three'
 import debounce from 'debounce'
@@ -29,10 +29,20 @@ const random = v => {
             0
         ],
         color: colors[Math.round(Math.random() * (colors.length - 1))],
-        scale: [1 + r * 3.5, 1 + r * 3.5, 1],
+        scale: [1 + r * 2.5, 1 + r * 2.5, 1],
         // scale: [1 + r * 2, 1 + r * 2, 1],
         rotation: [0, 0, THREE.Math.degToRad(Math.round(Math.random()) * 45)]
     }
+}
+
+function makePositions(viewport) {
+    let positions = []
+
+    for (let i = 0; i < number; i++) {
+        positions.push(random(viewport))
+    }
+
+    return positions
 }
 
 function Content() {
@@ -43,15 +53,12 @@ function Content() {
         scene.background = new THREE.Color(0xf9fce1)
     }, [gl, scene])
 
-    // let aspect =
-    //     viewport.width > viewport.height ? viewport.width : viewport.height
-    let aspect = viewport.width
-    // let aspect = 1
-    aspect = aspect / 8
+    const aspect = useMemo(() => viewport.width / 8, [viewport.width])
 
+    const positionsRef = useRef(makePositions(viewport))
     const [springs, set] = useSprings(number, i => ({
         from: random(viewport),
-        ...random(viewport),
+        ...positionsRef.current[i],
         config: { mass: 20, tension: 500, friction: 200 }
     }))
     const isFirstMount = useRef(true)
@@ -59,13 +66,71 @@ function Content() {
 
     const resetPositions = useCallback(
         debounce(() => {
+            console.log('refViewport.current', refViewport.current)
             if (refViewport.current) {
-                // console.log('it ran 1')
-                set(i => ({ ...random(refViewport.current), delay: i * 50 }))
+                let newPositions = makePositions(refViewport.current)
+                positionsRef.current = newPositions
+                set(i => ({ ...newPositions[i], delay: i * 50 }))
             }
         }, 200),
         [set]
     )
+
+    const handleMouseEnterSpring = useCallback(
+        idx => {
+            set(i => {
+                if (idx === i) {
+                    return {
+                        scale: [
+                            positionsRef.current[i].scale[0] * 2,
+                            positionsRef.current[i].scale[0] * 2,
+                            1
+                        ]
+                    }
+                } else {
+                    return null
+                }
+            })
+        },
+        [set]
+    )
+
+    const handleMouseLeaveSpring = useCallback(
+        idx => {
+            set(i => {
+                if (idx === i) {
+                    return {
+                        scale: [
+                            positionsRef.current[i].scale[0],
+                            positionsRef.current[i].scale[0],
+                            1
+                        ]
+                    }
+                } else {
+                    return null
+                }
+            })
+        },
+        [set]
+    )
+
+    useEffect(() => {
+        let interval = setInterval(() => resetPositions(), 12000)
+        let isIntervalActive = true
+
+        document.addEventListener('click', function() {
+            console.log('click')
+            resetPositions()
+            clearInterval(interval)
+            isIntervalActive = false
+        })
+
+        return () => {
+            if (isIntervalActive) {
+                clearInterval(interval)
+            }
+        }
+    }, [gl.domElement, resetPositions])
 
     useEffect(() => {
         if (!isFirstMount.current) {
@@ -73,22 +138,41 @@ function Content() {
             resetPositions()
         }
         if (isFirstMount.current) {
+            refViewport.current = viewport
             setTimeout(() => {
                 isFirstMount.current = false
             }, 600)
         }
-
-        let interval = setInterval(
-            () => set(i => ({ ...random(viewport), delay: i * 50 })),
-            10000
-        )
-        return () => {
-            clearInterval(interval)
-        }
     }, [resetPositions, set, viewport])
 
     return springs.map(({ color, ...props }, index) => (
-        <a.mesh key={index} {...props}>
+        <Box
+            key={index}
+            idx={index}
+            color={color}
+            aspect={aspect}
+            onMouseEnter={handleMouseEnterSpring}
+            onMouseLeave={handleMouseLeaveSpring}
+            {...props}
+        />
+    ))
+}
+
+function Box({ idx, color, aspect, onMouseEnter, onMouseLeave, ...props }) {
+    const handlePointerEnter = useCallback(() => onMouseEnter(idx), [
+        idx,
+        onMouseEnter
+    ])
+    const handlePointerLeave = useCallback(() => onMouseLeave(idx), [
+        idx,
+        onMouseLeave
+    ])
+
+    return (
+        <a.mesh
+            onPointerOver={handlePointerEnter}
+            onPointerOut={handlePointerLeave}
+            {...props}>
             <planeBufferGeometry
                 attach="geometry"
                 args={[
@@ -99,7 +183,7 @@ function Content() {
             {/* <planeBufferGeometry attach="geometry" args={[1, 1]} /> */}
             <a.meshPhongMaterial attach="material" color={color} />
         </a.mesh>
-    ))
+    )
 }
 
 function Effect() {
@@ -149,8 +233,8 @@ function Effect() {
                 attachArray="passes"
                 args={[resources.FXAAShader]}
                 material-uniforms-resolution-value={[
-                    window.devicePixelRatio / size.width,
-                    window.devicePixelRatio / size.height
+                    1 / (window.devicePixelRatio * size.width),
+                    1 / (window.devicePixelRatio * size.height)
                 ]}
                 renderToScreen
             />
