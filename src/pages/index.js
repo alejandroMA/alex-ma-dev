@@ -60,7 +60,7 @@ function IndexPage() {
                     <FAIcon icon={faGithub} />
                 </a>
                 <a
-                    href="https://www.linkedin.com/in/alejandro-madariaga-angeles/"
+                    href="https://www.linkedin.com/in/alejandro-ma-an/"
                     target="_blank"
                     rel="noopener noreferrer">
                     <FAIcon icon={faLinkedin} />
