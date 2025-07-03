@@ -44,6 +44,9 @@ function IndexPage() {
             <div className="links">
                 <ul>
                     <li>
+                        <a href="https://fun-gauge.dev/">@fun-gauge</a>
+                    </li>
+                    <li>
                         <a href={data.resume.publicURL}>Resume</a>
                     </li>
                     <li>
