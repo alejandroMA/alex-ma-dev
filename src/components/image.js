@@ -16,9 +16,9 @@ import Img from 'gatsby-image'
 const Image = () => {
     const data = useStaticQuery(graphql`
         query {
-            profileImg: file(relativePath: { eq: "img/profile-pic-2.jpg" }) {
+            profileImg: file(relativePath: { eq: "img/profile-pic-3.jpg" }) {
                 childImageSharp {
-                    fluid(maxWidth: 300, quality: 95) {
+                    fluid(maxWidth: 600, quality: 90) {
                         ...GatsbyImageSharpFluid_tracedSVG
                     }
                 }

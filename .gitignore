@@ -79,3 +79,11 @@ public
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn
+
+# wrangler project
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+.wrangler/

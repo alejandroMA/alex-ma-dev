@@ -46,12 +46,12 @@ function IndexPage() {
                     <li>
                         <a href="https://fun-gauge.dev/">@fun-gauge</a>
                     </li>
-                    <li>
+                    {/* <li>
                         <a href={data.resume.publicURL}>Resume</a>
                     </li>
                     <li>
                         <a href={data.portfolio.publicURL}>Portfolio</a>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 

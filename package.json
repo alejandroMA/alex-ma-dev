@@ -36,7 +36,8 @@
     "husky": "^3.0.4",
     "prettier": "^1.19.1",
     "pretty-quick": "^1.11.1",
-    "source-map-explorer": "^2.1.1"
+    "source-map-explorer": "^2.1.1",
+    "wrangler": "^4.83.0"
   },
   "keywords": [
     "gatsby"
@@ -49,6 +50,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve -H 0.0.0.0",
     "clean": "gatsby clean",
+    "wrangler": "wrangler",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "analyze": "source-map-explorer 'public/*.js'",
     "postinstall": "patch-package"
